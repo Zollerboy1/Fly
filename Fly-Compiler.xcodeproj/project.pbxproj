@@ -7,11 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		841AC7D020756F3300B8D8E4 /* Sequence+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841AC7CF20756F3300B8D8E4 /* Sequence+Extension.swift */; };
 		8459F5AF20745CFE0081FBF8 /* Character+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8459F5AA20745CFE0081FBF8 /* Character+Extension.swift */; };
 		8459F5B020745CFE0081FBF8 /* Lexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8459F5AC20745CFE0081FBF8 /* Lexer.swift */; };
 		8459F5B120745CFE0081FBF8 /* FSM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8459F5AD20745CFE0081FBF8 /* FSM.swift */; };
-		8459F5B220745CFE0081FBF8 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8459F5AE20745CFE0081FBF8 /* Token.swift */; };
+		8459F5B220745CFE0081FBF8 /* LexerToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8459F5AE20745CFE0081FBF8 /* LexerToken.swift */; };
+		8459F5B4207465BC0081FBF8 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8459F5B3207465BC0081FBF8 /* String+Extension.swift */; };
 		84C2FDBB207453490025B000 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C2FDBA207453490025B000 /* main.swift */; };
+		84E3755B207660A6003B1AD2 /* CommandLineTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E3755A207660A6003B1AD2 /* CommandLineTool.swift */; };
+		84E3755D207662B1003B1AD2 /* ConsoleIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E3755C207662B1003B1AD2 /* ConsoleIO.swift */; };
+		84E3755F20766364003B1AD2 /* Bundle+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E3755E20766364003B1AD2 /* Bundle+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -27,12 +32,17 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		841AC7CF20756F3300B8D8E4 /* Sequence+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+Extension.swift"; sourceTree = "<group>"; };
 		8459F5AA20745CFE0081FBF8 /* Character+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Character+Extension.swift"; sourceTree = "<group>"; };
 		8459F5AC20745CFE0081FBF8 /* Lexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lexer.swift; sourceTree = "<group>"; };
 		8459F5AD20745CFE0081FBF8 /* FSM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSM.swift; sourceTree = "<group>"; };
-		8459F5AE20745CFE0081FBF8 /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
-		84C2FDB7207453490025B000 /* Fly-Compiler */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Fly-Compiler"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8459F5AE20745CFE0081FBF8 /* LexerToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LexerToken.swift; sourceTree = "<group>"; };
+		8459F5B3207465BC0081FBF8 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		84C2FDB7207453490025B000 /* fly */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = fly; sourceTree = BUILT_PRODUCTS_DIR; };
 		84C2FDBA207453490025B000 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		84E3755A207660A6003B1AD2 /* CommandLineTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandLineTool.swift; sourceTree = "<group>"; };
+		84E3755C207662B1003B1AD2 /* ConsoleIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleIO.swift; sourceTree = "<group>"; };
+		84E3755E20766364003B1AD2 /* Bundle+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +60,9 @@
 			isa = PBXGroup;
 			children = (
 				8459F5AA20745CFE0081FBF8 /* Character+Extension.swift */,
+				8459F5B3207465BC0081FBF8 /* String+Extension.swift */,
+				841AC7CF20756F3300B8D8E4 /* Sequence+Extension.swift */,
+				84E3755E20766364003B1AD2 /* Bundle+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -59,7 +72,7 @@
 			children = (
 				8459F5AC20745CFE0081FBF8 /* Lexer.swift */,
 				8459F5AD20745CFE0081FBF8 /* FSM.swift */,
-				8459F5AE20745CFE0081FBF8 /* Token.swift */,
+				8459F5AE20745CFE0081FBF8 /* LexerToken.swift */,
 			);
 			path = Lexer;
 			sourceTree = "<group>";
@@ -75,7 +88,7 @@
 		84C2FDB8207453490025B000 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				84C2FDB7207453490025B000 /* Fly-Compiler */,
+				84C2FDB7207453490025B000 /* fly */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -84,6 +97,8 @@
 			isa = PBXGroup;
 			children = (
 				84C2FDBA207453490025B000 /* main.swift */,
+				84E3755A207660A6003B1AD2 /* CommandLineTool.swift */,
+				84E3755C207662B1003B1AD2 /* ConsoleIO.swift */,
 				8459F5AB20745CFE0081FBF8 /* Lexer */,
 				8459F5A920745CFE0081FBF8 /* Extensions */,
 			);
@@ -107,7 +122,7 @@
 			);
 			name = "Fly-Compiler";
 			productName = "Fly-Compiler";
-			productReference = 84C2FDB7207453490025B000 /* Fly-Compiler */;
+			productReference = 84C2FDB7207453490025B000 /* fly */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -147,11 +162,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84E3755D207662B1003B1AD2 /* ConsoleIO.swift in Sources */,
+				84E3755F20766364003B1AD2 /* Bundle+Extension.swift in Sources */,
 				84C2FDBB207453490025B000 /* main.swift in Sources */,
-				8459F5B220745CFE0081FBF8 /* Token.swift in Sources */,
+				8459F5B220745CFE0081FBF8 /* LexerToken.swift in Sources */,
 				8459F5B020745CFE0081FBF8 /* Lexer.swift in Sources */,
 				8459F5B120745CFE0081FBF8 /* FSM.swift in Sources */,
+				8459F5B4207465BC0081FBF8 /* String+Extension.swift in Sources */,
+				84E3755B207660A6003B1AD2 /* CommandLineTool.swift in Sources */,
 				8459F5AF20745CFE0081FBF8 /* Character+Extension.swift in Sources */,
+				841AC7D020756F3300B8D8E4 /* Sequence+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,7 +296,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9PQZB885SJ;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = fly;
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -286,7 +306,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9PQZB885SJ;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = fly;
 				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
