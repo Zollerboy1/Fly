@@ -1,9 +1,9 @@
-:heavy_exclamation_mark: This README.md file isn't completed yet, other language specifications will be added soon. If you have an idea for a new feature, feel free to send a PR. For now the code syntax highlighting language is Swift, because it's syntax is very similar.
+:heavy_exclamation_mark: This language description isn't completed yet, other language specifications will be added soon. If you have an idea for a new feature, feel free to send a PR. For now the code syntax highlighting language is Swift, because it's syntax is very similar. Also I want to thank Faiçal Tchirou, who wrote the very good tutorial [Let’s Build a Programming Language](https://hackernoon.com/lets-build-a-programming-language-2612349105c6), which mainly inspired me.
 
 # Fly
 ## New programming language inspired mainly by Swift, but also other languages like Python. It'll be written in Swift.
 
-Contents:
+### Contents:
 
 1. [Data Types](#data-types)
 2. [Comments](#comments)
@@ -31,6 +31,7 @@ Contents:
 	* [Methods](#methods)
 	* [Private Properties and Methods](#private-properties-and-methods)
 	* [Inheritance](#inheritance)
+	* [Inheritance from Object Class](#inheritance-from-object-class)
 	* [Defining Operators](#defining-operators)
 	* [Operator overloading](#operator-overloading)
 11. [Everything is an Object](#everything-is-an-object)
@@ -56,7 +57,7 @@ Fly supports values of many familiar types like:
 
 Every type in Fly inherits from a supertype `Object`.
 
-Fly also supports Optional types which are described later.
+Fly also supports Optional types which are described [later](#optionals).
 
 ---
 ### Comments
@@ -86,7 +87,8 @@ let cat = "🐱"; print(cat)
 ---
 ### Constants and Variables
 
-You declare constants with the `let` keyword and variables with the `var` keyword. The value of a constant can’t be changed once it’s set. **Note:** If a stored value in your code won’t change, always declare it as a constant with the `let` keyword. Use variables only for storing values that need to be able to change:
+You declare constants with the `let` keyword and variables with the `var` keyword. The value of a constant can’t be changed once it’s set. 
+>**Note:** If a stored value in your code won’t change, always declare it as a constant with the `let` keyword. Use variables only for storing values that need to be able to change:
 
 ```swift
 var variable = 2
@@ -140,12 +142,16 @@ let string = "Hello World!"
 print(string)
 //Prints "Hello World!"
 ```
-Fly uses *string interpolation* to include the name of a constant or variable as a placeholder in a longer string, and to prompt Fly to replace it with the current value of that constant or variable. Wrap the name in parentheses and escape it with a backslash before the opening parenthesis:
+Fly uses *string concatenation* to join many strings to one. You can also concatenate other objects than strings, like integers, into a string (how this works is described in more detail [here](#inheritance-from-object-class)):
 
 ```swift
 let string = "World"
-print("Hello \(string)!")
+print("Hello " + string + "!")
 //Prints "Hello World!"
+
+let numberOfSandwiches = 2
+print("I eat " + numberOfSandwiches + " sandwiches at breakfast.")
+//Prints "I eat 2 sandwiches at breakfast."
 ```
 
 ---
@@ -169,11 +175,11 @@ let xyzCoordinate = (15.0, 20.0, 10.0)
 //xyzCoordinate is of type (Double, Double, Double)
 let (x, y, z) = xyzCoordinate
 //x, y, z are now each of type Double
-print("x: \(x)")
+print("x: " + x)
 //Prints "x: 15.0"
-print("y: \(y)")
+print("y: " + y)
 //Prints "y: 20.0"
-print("z: \(z)")
+print("z: " + z)
 //Prints "z: 10.0"
 ```
 Alternatively, access the individual element values in a tuple using index numbers starting at zero:
@@ -181,9 +187,9 @@ Alternatively, access the individual element values in a tuple using index numbe
 ```swift
 let http404Error = (404, "Not Found")
 //Type infered to be (Int, String)
-print("The status code is \(http404Error.0)")
+print("The status code is " + http404Error.0)
 //Prints "The status code is 404"
-print("The status message is \(http404Error.1)")
+print("The status message is " + http404Error.1)
 //Prints "The status message is Not Found"
 ```
 Also you can name the individual elements in a tuple when the tuple is defined:
@@ -191,9 +197,9 @@ Also you can name the individual elements in a tuple when the tuple is defined:
 ```swift
 let http200Status = (statusCode: 200, description: "OK")
 //Type infered to be (Int, String)
-print("The status code is \(http200Status.statusCode)")
+print("The status code is " + http200Status.statusCode)
 //Prints "The status code is 200"
-print("The status message is \(http200Status.description)")
+print("The status message is " + http200Status.description)
 //Prints "The status message is OK"
 ```
 
@@ -204,11 +210,11 @@ You use optionals in situations where a value may be absent. An optional represe
 
 Here’s an example of how optionals can be used to cope with the absence of a value. Fly’s `Int` type has an initializer which tries to convert a `String` value into an `Int` value. However, not every string can be converted into an integer. The string `"123"` can be converted into the numeric value `123`, but the string `"hello, world"` doesn’t have an obvious numeric value to convert to.
 
-The example below uses the initializer to try to convert a String into an Int:
+The example below uses the initializer to try to convert a String into an Int (see [Initializers](#initializers) for a description of initializers and initializer syntax):
 
 ```swift
 let possibleNumber = "123"
-let convertedNumber = Int(possibleNumber)
+let convertedNumber = new Int(possibleNumber)
 //Type inferred to be "Int?", or "optional Int"
 ```
 Because the initializer might fail, it returns an optional Int, rather than an Int. An optional Int is written as Int?, not Int. The question mark indicates that the value it contains is optional, meaning that it might contain some Int value, or it might contain no value at all. (It can’t contain anything else, such as a Bool value or a String value. It’s either an Int, or it’s nothing at all.)
@@ -219,7 +225,7 @@ You set an optional variable to a valueless state by assigning it the special va
 var serverResponseCode@Int? = 404
 //serverResponseCode contains an actual Int value of 404
 serverResponseCode = nil
-//serverResponseCode now contains no value
+//serverResponseCode now contains no value, but is still of type Int?
 ```
 
 If you define an optional variable without providing a default value, the variable is automatically set to nil for you:
@@ -244,6 +250,7 @@ optionalInteger = nil
 print(optionalInteger!)
 //Runtime-Error, because you cannot force-unwrap an Optional, which is nil
 ```
+You can read more options of unwrapping an Optional in the [if-elif-else](#if-elif-else) section.
 
 ---
 ### Conditional Statements
@@ -312,14 +319,14 @@ print(optionalInteger!)
 	
 	```swift
 	if let firstNumber = Int("4"), let secondNumber = Int("42"), firstNumber < secondNumber && secondNumber < 100 {
-	    print("\(firstNumber) < \(secondNumber) < 100")
+	    print(firstNumber + " < " + secondNumber + " < 100")
 	}
 	// Prints "4 < 42 < 100"
 	 
 	if let firstNumber = Int("4") {
 	    if let secondNumber = Int("42") {
 	        if firstNumber < secondNumber && secondNumber < 100 {
-	            print("\(firstNumber) < \(secondNumber) < 100")
+	            print(firstNumber + " < " + secondNumber + " < 100")
 	        }
 	    }
 	}
@@ -371,7 +378,7 @@ print(optionalInteger!)
 	default:
     	naturalCount = "many"
 	}
-	print("There are \(naturalCount) \(countedThings).")
+	print("There are " + naturalCount + countedThings + ".")
 	// Prints "There are dozens of moons orbiting Saturn."
 	```
 	In the above example, `approximateCount` is evaluated in a `switch` statement. Each `case` compares that value to a number or interval. Because the value of `approximateCount` falls between 12 and 100, `naturalCount` is assigned the value `"dozens of"`, and execution is transferred out of the `switch` statement.
@@ -388,7 +395,7 @@ print(optionalInteger!)
 	let names = ["Anna", "Alex", "Brian", "Jack"]
 	//Array of type [String]
 	for name in names {
-    	print("Hello, \(name)!")
+    	print("Hello, " + name + "!")
 	}
 	//Prints "Hello, Anna!"
 	//Prints "Hello, Alex!"
@@ -401,7 +408,7 @@ print(optionalInteger!)
 	```swift
 	let names = ["Anna", "Alex", "Brian", "Jack"]
 	//Array of type [String]
-	for name in names: print("Hello, \(name)!")
+	for name in names: print("Hello, " + name + "!")
 	//Prints "Hello, Anna!"
 	//Prints "Hello, Alex!"
 	//Prints "Hello, Brian!"
@@ -412,7 +419,7 @@ print(optionalInteger!)
 	```swift
 	let numberOfLegs = ["spider": 8, "ant": 6, "cat": 4]
 	//Dictionary of type [String: Int]
-	for (animalName, legCount) in numberOfLegs: print("\(animalName)s have \(legCount) legs")
+	for (animalName, legCount) in numberOfLegs: print(animalName + "s have " + legCount + " legs")
 	//Prints "ants have 6 legs"
 	//Prints "spiders have 8 legs"
 	//Prints "cats have 4 legs"
@@ -422,7 +429,7 @@ print(optionalInteger!)
 	You can also use `for-in` loops with numeric ranges. This example prints the first few entries in a five-times table:
 	
 	```swift
-	for index in 1...5: print("\(index) times 5 is \(index * 5)")
+	for index in 1...5: print(index + " times 5 is " + (index * 5))
 	//Prints "1 times 5 is 5"
 	//Prints "2 times 5 is 10"
 	//Prints "3 times 5 is 15"
@@ -438,7 +445,7 @@ print(optionalInteger!)
 	```swift
 	var index = 1
 	while index <= 5 {
-		print("\(index) times 5 is \(index * 5)")
+		print(index + " times 5 is " + (index * 5))
 		index += 1
 	}
 	//Prints "1 times 5 is 5"
@@ -475,6 +482,7 @@ print(optionalInteger!)
 	```swift
 	func sum(a@Int, b@Int)@Int {
 	    a + b
+	    //Returned, because it's the last expression
 	}
 	
 	let sumOfTwoNumbers = sum(a = 5, b = 7)
@@ -488,13 +496,14 @@ print(optionalInteger!)
 		let square = number * number
 		let cube = number * number * number
 		(square, cube)
+	    //Returned, because it's the last expression
 	}
 	
 	let number = 3
 	let (square, cube) = getSquareAndCubeOfNumber(number)
-	print("The square of \(number) is \(square)")
+	print("The square of " + number + " is " + square)
 	//Prints "The square of 3 is 9"
-	print("The cube of \(number) is \(cube)")
+	print("The cube of " + number + " is " + cube)
 	//Prints "The cube of 3 is 27"
 	```
 
@@ -506,6 +515,7 @@ print(optionalInteger!)
 	```swift
 	func sum(_ a@Int, b@Int)@Int {
 	    a + b
+	    //Returned, because it's the last expression
 	}
 	
 	let sumOfTwoNumbers = sum(5, b = 7)
@@ -517,6 +527,7 @@ print(optionalInteger!)
 	```swift
 	func sum(_ a@Int, _ b@Int)@Int {
 	    a + b
+	    //Returned, because it's the last expression
 	}
 	
 	let sumOfTwoNumbers = sum(5, 7)
@@ -527,7 +538,8 @@ print(optionalInteger!)
 	
 	```swift
 	func greet(_ name@String = "George")@String {
-		"Hello \(name)!"
+		"Hello " + name + "!"
+	    //Returned, because it's the last expression
 	}
 	
 	let greeting1 = greet()
@@ -545,7 +557,7 @@ print(optionalInteger!)
 	Of course you can also omit the curly braces, when there is only one expression in the body. The example above can be written like:
 	
 	```swift
-	func greet(_ name@String = "George")@String: "Hello \(name)!"
+	func greet(_ name@String = "George")@String: "Hello " + name + "!"
 	
 	let greeting1 = greet()
 	print(greeting1)
@@ -562,7 +574,7 @@ print(optionalInteger!)
 	If the function does not return a value, the return type has to be `Void`:
 	
 	```swift
-	func greet(_ name@String)@Void: print("Hello \(name)!")
+	func greet(_ name@String)@Void: print("Hello " + name + "!")
 	
 	greet("Hans")
 	//Prints "Hello Hans!
@@ -571,7 +583,7 @@ print(optionalInteger!)
 	However, as a syntactic sugar, if a function does not declare any return type, Fly will automatically assume that the return type is `Void`. So the previous example could be written as follows:
 	
 	```swift
-	func greet(_ name@String): print("Hello \(name)!")
+	func greet(_ name@String): print("Hello " + name + "!")
 	
 	greet("Hans")
 	//Prints "Hello Hans!
@@ -611,7 +623,7 @@ print(optionalInteger!)
 	}
 	
 	let p = new Person()
-	print("\(p.firstname) \(p.lastname), \(p.age) years old")
+	print(p.firstname + " " + p.lastname + ", " + p.age + " years old")
 	//Prints "Frank Müller, 45 years old"
 	```
 
@@ -635,11 +647,39 @@ print(optionalInteger!)
 	
 	let p = new Person(firstname = "Donald", lastname = "Duck", age = 40)
 	//is equal to
-	let p1 = Person.init(firstname = "Donald", lastname = "Duck", age = 40)
+	//let p = Person.init(firstname = "Donald", lastname = "Duck", age = 40)
 	
-	print("\(p.firstname) \(p.lastname), \(p.age) years old")
+	print(p.firstname + " " + p.lastname + ", " + p.age + " years old")
 	//Prints "Donald Duck, 40 years old"
 	```
+	An initializer can be failable, that means, he returns an Optional instance of the class. Write the keyword `failable` before the `init`, to say, that it's a failable initializer. Then you can inside of the initializer body return nil, if the class can't be initialized:
+	
+	```swift
+	class Animal {
+		var species@String
+		
+		failable init(species@String) {
+			if species.isEmpty: return nil
+			//isEmpty is a Boolean property of the String class, true if the String contains at minimum
+			//one character, otherwise false
+			
+        	self.species = species
+    	}
+	}
+	
+	let someCreature = new Animal(species = "Giraffe")
+	//someCreature is of type Animal?, not Animal
+ 
+	if let giraffe = someCreature: print("An animal was initialized with a species of " + giraffe.species)
+	//Prints "An animal was initialized with a species of Giraffe"
+	
+	let anonymousCreature = new Animal(species: "")
+	//anonymousCreature is of type Animal?, not Animal
+ 
+	if anonymousCreature == nil: print("The anonymous creature could not be initialized")
+	//Prints "The anonymous creature could not be initialized"
+	```
+	>**Note**: Checking for an empty string value (such as `""` rather than `"Giraffe"`) is not the same as checking for nil to indicate the absence of an optional String value. In the example above, an empty string (`""`) is a valid, nonoptional String. However, it is not appropriate for an animal to have an empty string as the value of its species property. To model this restriction, the failable initializer triggers an initialization failure if an empty string is found.
 
 	---
 * #### Computed Properties
@@ -688,14 +728,14 @@ print(optionalInteger!)
 	}
 	
 	var square = new Rect(origin = new Point(x = 0.0, y = 0.0), size = new Size(width = 10.0, height = 10.0))
-	print("square.center is at (\(square.center.x), \(square.center.y))")
+	print("square.center is at (" + square.center.x) + ", " + square.center.y + ")")
 	// Prints "square.center is at (5.0, 5.0)"
 	
 	square.center = new Point(x = 15.0, y = 15.0)
-	print("square.origin is now at (\(square.origin.x), \(square.origin.y))")
+	print("square.origin is at (" + square.origin.x) + ", " + square.origin.y + ")")
 	// Prints "square.origin is now at (10.0, 10.0)"
 	```
-	Also a *computed property* can only have a getter. That means it is read-only like a constant. Because there is no setter, you can also omit the `get` keyword and the curly braces of the getter:
+	Also a *computed property* can only have a getter. That means it is read-only similar to a constant. Because there is no setter, you can also omit the `get` keyword and the curly braces of the getter:
 	
 	```swift
 	class Cuboid {
@@ -714,7 +754,7 @@ print(optionalInteger!)
 	}
 	
 	let fourByFiveByTwo = new Cuboid(width = 4.0, height = 5.0, depth = 2.0)
-	print("the volume of fourByFiveByTwo is \(fourByFiveByTwo.volume)")
+	print("the volume of fourByFiveByTwo is " + fourByFiveByTwo.volume)
 	// Prints "the volume of fourByFiveByTwo is 40.0"
 	```
 	Again you can omit the curly braces of a read-only computed property, if it contains only one expression. The `volume` property of the example above can be written as:
@@ -755,17 +795,17 @@ print(optionalInteger!)
 		}
 		
 		func printPersonDescription() {
-			if let emailAdress = self.emailAdress: print("\(self.firstname) \(self.lastname), \(self.age) years old, e-mail-adress: \(emailAdress)")
-			else: print("\(self.firstname) \(self.lastname), \(self.age) years old")
+			if let emailAdress = self.emailAdress: print(self.firstname + " " + self.lastname + ", " + self.age + " years old, e-mail-adress: " + emailAdress)
+			else: print(self.firstname + " " + self.lastname + ", " + self.age + " years old")
 		}
 	}
 	
 	let p = new Person(firstname = "Donald", lastname = "Duck", age = 40)
-	p.printPersonDescription
+	p.printPersonDescription()
 	//Prints "Donald Duck, 40 years old"
 	
 	let p2 = new Person(firstname = "Donald", lastname = "Duck", age = 40, emailAdress = "donald.duck@gmail.com")
-	p2.printPersonDescription
+	p2.printPersonDescription()
 	//Prints "Donald Duck, 40 years old, e-mail-adress: donald.duck@gmail.com"
 	```
 
@@ -793,7 +833,7 @@ print(optionalInteger!)
 		private func printHello(): print("Hello")
 	}
 	
-	let object = SimpleClass(5, 10)
+	let object = new SimpleClass(5, 10)
 	print(object.number)
 	//Prints "5"
 	
@@ -802,7 +842,7 @@ print(optionalInteger!)
 	
 	let privateNumber = object.getPrivateNumber()
 	//Prints "Hello"
-	print(object.getPrivateNumber())
+	print(privateNumber)
 	//Prints "10"
 	
 	object.printHello()
@@ -812,7 +852,7 @@ print(optionalInteger!)
 	---
 * #### Inheritance
 	
-	A class can inherit from another class. It's written like when you set the type of a variable. When you inherit a class, the inherited class (subclass) has all properties and methods as the superclass. Also you can access the initializers and methods of the superclass via the `super` keyword. Of course a subclass can have additional properties and methods and can override the superclasses methods with the keyword `override`:
+	A class can inherit from another class. It's written like when you set the type of a variable with a '@', followed by the parent class name. When you inherit a class, the inherited class (subclass) inherits all properties and methods of the superclass. Also you can access the initializers and methods of the superclass via the `super` keyword. Of course a subclass can have additional properties and methods and can override the superclasses methods with the keyword `override`:
 	
 	```swift
 	class ParentClass {
@@ -820,7 +860,7 @@ print(optionalInteger!)
 		
 		init(number@Int): self.number = number
 		
-		func printProperties(): print("number: \(self.number)")
+		func printProperties(): print("number: " + self.number)
 	}
 	
 	class ChildClass@ParentClass {
@@ -832,22 +872,25 @@ print(optionalInteger!)
 		}
 		
 		override func printProperties() {
-			print("description: \(self.description)")
+			print("description: " + self.description)
 			super.printProperties()
 		}
 	}
 	
-	let parentClassObject = ParentClass(number = 5)
+	let parentClassObject = new ParentClass(number = 5)
 	parentClassObject.printProperties()
 	//Prints "number: 5"
 	
-	let childClassObject = ChildClass(description = "Child Class", number = 10)
+	let childClassObject = new ChildClass(description = "Child Class", number = 10)
 	childClassObject.printProperties()
 	//Prints "description: Child Class"
 	//Prints "number: 10"
 	```
 	
-	Because every class in Fly inherits from the `Object` class, you can override the methods of the `Object` class as well. For example you can override the `toString()` method of the `Object` class:
+	---
+* #### Inheritance from Object Class
+	
+	Because every class in Fly inherits from the `Object` class, you can override the methods of the `Object` class as well. For example you can override the `toString()` method of the `Object` class (by the way, only the fact, that every class in Fly has the method `toString()`, makes *string concatenation* with different variable types possible):
 	
 	```swift
 	class Person {
@@ -859,10 +902,10 @@ print(optionalInteger!)
 			self.lastname = lastname
 		}
 		
-		override func toString()@String: "\(self.firstname) \(self.lastname)"
+		override func toString()@String: self.firstname + " " + self.lastname
 	}
 	
-	let p = Person(firstname: "Mark", lastname: "Schröder")
+	let p = new Person(firstname: "Mark", lastname: "Schröder")
 	print(p.toString())
 	//Prints "Mark Schröder"
 	```
@@ -890,7 +933,7 @@ print(optionalInteger!)
 	let anotherPoint = new Point(x = 2.0, y = 4.0)
 	
 	let addedPoint = point + anotherPoint
-	print("x: \(addedPoint.x), y: \(addedPoint.y)")
+	print("x: " + addedPoint.x + ", y: " + addedPoint.y)
 	//Prints "x: 5.0, y: 5.0"
 	```
 	In the example above two variables `point` and `anotherPoint`, both of type `Point` were added to another variable called `addedPoint`, also of type `Point`. Fly automatically converts the expression `point + anotherPoint` to the function call `point.+(other = anotherPoint)`.
@@ -918,7 +961,7 @@ print(optionalInteger!)
 	let anotherPoint = new Point(x = 2.0, y = 4.0)
 	
 	point += anotherPoint
-	print("x: \(point.x), y: \(point.y)")
+	print("x: " + point.x + ", y: " + point.y)
 	//Prints "x: 5.0, y: 5.0"
 	```
 	Again, the statement `point += anotherPoint` is converted to the function call `point.+=(other = anotherPoint)`
@@ -947,7 +990,7 @@ print(optionalInteger!)
 	let point = new Point(x = 3.0, y = 1.0)
 	
 	let anotherPoint = -point
-	print("x: \(anotherPoint.x), y: \(anotherPoint.y)")
+	print("x: " + anotherPoint.x + ", y: " + anotherPoint.y)
 	//Prints "x: -3.0, y: -1.0"
 	```
 	In this case, too, the expression `-point` converts to the function call `point.-()`
@@ -968,7 +1011,8 @@ print(optionalInteger!)
 			self.den = den
 		}
 		
-		override func toString()@String: "\(self.num)/\(self.den)"
+		override func toString()@String: self.num + "/" + self.den
+		//Is called when printing the class or using it in string concatenation, so it doesn't have to be called extra
 		
 		binary func +(other@Rational)@Rational {
 			//Code to add two Rationals
@@ -988,20 +1032,22 @@ print(optionalInteger!)
 	let fourtyTwo = 42
 	let threePointTwoFive = 3.25
 	
-	print("\(threeQuarters.toString) + \(oneHalf.toString) = \((threeQuarters + oneHalf).toString)"
+	print(threeQuarters + " + " + oneHalf + " = " + (threeQuarters + oneHalf))
+	//does the same as
+	//print(threeQuarters.toString() + " + " + oneHalf.toString() + " = " + (threeQuarters + oneHalf).toString())
 	//Prints "3/4 + 1/2 = 5/4"
 	
-	print("\(oneHalf.toString) + \(fourtyTwo) = \((oneHalf + fourtyTwo).toString)"
-	//Prints "1/2 + 42 = 85/2
+	print(oneHalf + " + " + fourtyTwo + " = " + (oneHalf + fourtyTwo))
+	//Prints "1/2 + 42 = 85/2"
 	
-	print("\(threeQuarters.toString) + \(threePointTwoFive) = \((threeQuarters + threePointTwoFive).toString)"
-	//Prints "3/4 + 3.25 = 4/1
+	print(threeQuarters + " + " + threePointTwoFive + " = " + (threeQuarters + threePointTwoFive))
+	//Prints "3/4 + 3.25 = 4/1"
 	```
 	
 ---
 ### Everything is an Object
 
-To say it again: everything in Fly is an object. Even primitives like `Int`s or `Double`s are actually objects. And an arithmetic expression like `32 + 21` is, in fact, the function call `32.+(21)`. This is a neat feature that enables us, among others things, to define operators for our own types in Fly.
+To say it again: everything in Fly is an object. Even primitives like `Int`s or `Double`s are actually objects. And an arithmetic expression like `32 + 21` is, in fact, the function call `32.+(21)`. This is a neat feature that enables us, among others things, to define operators for our own types in Fly and to use string concatenation with all classes including custom classes.
 
 
 
