@@ -69,18 +69,15 @@ enum LexerOperatorTokenType:String {
     case lowerOrEqual = "<="
     case notEqual = "!="
     
-    //Boolean operators
+    //Boolean and optional operators
     case and = "&&"
-    case not = "!"
+    case notAndForceUnwrap = "!"
+    case optional = "?"
     case or = "||"
     
     //Range operators
     case closedRange = "..."
     case halfOpenRange = "..<"
-    
-    //Optional operators
-    case forceUnwrap = "^"
-    case optional = "?"
     
     // //For future use:
     // //Other operators
